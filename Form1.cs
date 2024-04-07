@@ -18,31 +18,46 @@ namespace MousePollingRateDetector
             InitializeComponent();
             stopwatch = Stopwatch.StartNew();
             this.MouseMove += Form1_MouseMove;
+            this.chkShowCurrentRate.CheckedChanged += new EventHandler(chkShowCurrentRate_CheckedChanged);
         }
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            // 计数鼠标移动事件
             mouseMoveEvents++;
-
-            // 如果超过了一秒钟
             if (stopwatch.Elapsed.TotalSeconds - lastReportTime >= 1)
             {
-                // 计算当前轮询率
                 var currentRate = mouseMoveEvents / (stopwatch.Elapsed.TotalSeconds - lastReportTime);
-                // 更新总轮询率以计算平均值
                 totalPollingRate += currentRate;
                 pollingRateCount++;
                 var averageRate = totalPollingRate / pollingRateCount;
 
-                // 更新标签以显示当前和平均轮询率
                 lblCurrentRate.Text = $"Current Rate: {currentRate:F2} Hz";
                 lblAverageRate.Text = $"Average: {averageRate:F2} Hz";
 
-                // 重置计数器和报告时间
+                if (chkShowCurrentRate.Checked)
+                {
+                    lstPollingRates.Items.Add($" {currentRate:F2} Hz");
+                    if (lstPollingRates.Items.Count > 100)
+                    {
+                        lstPollingRates.Items.RemoveAt(0);
+                    }
+                    lstPollingRates.SelectedIndex = lstPollingRates.Items.Count - 1;
+                    lstPollingRates.ClearSelected();
+                }
+
                 lastReportTime = stopwatch.Elapsed.TotalSeconds;
                 mouseMoveEvents = 0;
             }
+        }
+
+        private void chkShowCurrentRate_CheckedChanged(object sender, EventArgs e)
+        {
+            lstPollingRates.Visible = chkShowCurrentRate.Checked;
+        }
+
+        private void lblAverageRate_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
