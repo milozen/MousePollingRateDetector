@@ -24,7 +24,9 @@ namespace MousePollingRateDetector
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
             mouseMoveEvents++;
-            if (stopwatch.Elapsed.TotalSeconds - lastReportTime >= 1)
+            double timeInterval;
+
+            if (double.TryParse(txtTimeInterval.Text, out timeInterval) && stopwatch.Elapsed.TotalSeconds - lastReportTime >= timeInterval)
             {
                 var currentRate = mouseMoveEvents / (stopwatch.Elapsed.TotalSeconds - lastReportTime);
                 totalPollingRate += currentRate;
@@ -48,6 +50,12 @@ namespace MousePollingRateDetector
                 lastReportTime = stopwatch.Elapsed.TotalSeconds;
                 mouseMoveEvents = 0;
             }
+
+            else if (!double.TryParse(txtTimeInterval.Text, out timeInterval))
+            {
+                // 可能需要处理无法转换的情况，例如显示错误消息或者设置一个默认值
+                timeInterval = 1; // 设置默认值或其他错误处理
+            }
         }
 
         private void chkShowCurrentRate_CheckedChanged(object sender, EventArgs e)
@@ -56,6 +64,11 @@ namespace MousePollingRateDetector
         }
 
         private void lblAverageRate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkShowCurrentRate_CheckedChanged_1(object sender, EventArgs e)
         {
 
         }

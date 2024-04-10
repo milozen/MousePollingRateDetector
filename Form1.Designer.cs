@@ -11,6 +11,9 @@ namespace MousePollingRateDetector
         private Label lblAverageRate; // 显示平均鼠标轮询率的标签
         private CheckBox chkShowCurrentRate; // 控制是否显示当前鼠标轮询率的勾选框
         private ListBox lstPollingRates; // 用于显示最近的100个鼠标轮询率
+        private Label lblTimeIntervalDescription; // 用于描述时间间隔输入框的标签
+        private TextBox txtTimeInterval; // 用户输入时间间隔的文本框
+
 
         /// <summary>
         /// Clean up any resources being used.
@@ -38,13 +41,15 @@ namespace MousePollingRateDetector
             lblAverageRate = new Label();
             chkShowCurrentRate = new CheckBox();
             lstPollingRates = new ListBox();
+            lblTimeIntervalDescription = new Label();
+            txtTimeInterval = new TextBox();
             SuspendLayout();
             // 
             // lblMoveYourMouse
             // 
             lblMoveYourMouse.AutoSize = true;
             lblMoveYourMouse.Font = new Font("Arial", 10F);
-            lblMoveYourMouse.Location = new Point(298, 9);
+            lblMoveYourMouse.Location = new Point(368, 39);
             lblMoveYourMouse.Name = "lblMoveYourMouse";
             lblMoveYourMouse.Size = new Size(154, 16);
             lblMoveYourMouse.TabIndex = 0;
@@ -54,7 +59,7 @@ namespace MousePollingRateDetector
             // 
             lblCurrentRate.AutoSize = true;
             lblCurrentRate.Font = new Font("Arial", 10F);
-            lblCurrentRate.Location = new Point(82, 74);
+            lblCurrentRate.Location = new Point(82, 109);
             lblCurrentRate.Name = "lblCurrentRate";
             lblCurrentRate.Size = new Size(97, 16);
             lblCurrentRate.TabIndex = 1;
@@ -64,7 +69,7 @@ namespace MousePollingRateDetector
             // 
             lblAverageRate.AutoSize = true;
             lblAverageRate.Font = new Font("Arial", 10F);
-            lblAverageRate.Location = new Point(82, 463);
+            lblAverageRate.Location = new Point(82, 512);
             lblAverageRate.Name = "lblAverageRate";
             lblAverageRate.Size = new Size(68, 16);
             lblAverageRate.TabIndex = 2;
@@ -74,21 +79,41 @@ namespace MousePollingRateDetector
             // chkShowCurrentRate
             // 
             chkShowCurrentRate.AutoSize = true;
-            chkShowCurrentRate.Location = new Point(82, 100);
+            chkShowCurrentRate.Location = new Point(82, 142);
             chkShowCurrentRate.Name = "chkShowCurrentRate";
             chkShowCurrentRate.Size = new Size(58, 21);
             chkShowCurrentRate.TabIndex = 3;
             chkShowCurrentRate.Text = "Show";
             chkShowCurrentRate.UseVisualStyleBackColor = true;
+            chkShowCurrentRate.CheckedChanged += chkShowCurrentRate_CheckedChanged_1;
             // 
             // lstPollingRates
             // 
             lstPollingRates.Font = new Font("Arial", 10F);
-            lstPollingRates.Location = new Point(82, 125);
+            lstPollingRates.Location = new Point(82, 169);
             lstPollingRates.Name = "lstPollingRates";
-            lstPollingRates.Size = new Size(160, 308);
+            lstPollingRates.Size = new Size(160, 340);
             lstPollingRates.TabIndex = 4;
             lstPollingRates.Visible = false;
+            // 
+            // lblTimeIntervalDescription
+            // 
+            lblTimeIntervalDescription.AutoSize = true;
+            lblTimeIntervalDescription.Font = new Font("Arial", 10F);
+            lblTimeIntervalDescription.Location = new Point(82, 78);
+            lblTimeIntervalDescription.Name = "lblTimeIntervalDescription";
+            lblTimeIntervalDescription.Size = new Size(198, 16);
+            lblTimeIntervalDescription.TabIndex = 5;
+            lblTimeIntervalDescription.Text = "Set Update Interval (seconds):";
+            // 
+            // txtTimeInterval
+            // 
+            txtTimeInterval.Font = new Font("Arial", 10F);
+            txtTimeInterval.Location = new Point(286, 75);
+            txtTimeInterval.Name = "txtTimeInterval";
+            txtTimeInterval.Size = new Size(85, 23);
+            txtTimeInterval.TabIndex = 6;
+            txtTimeInterval.Text = "1";
             // 
             // Form1
             // 
@@ -100,6 +125,8 @@ namespace MousePollingRateDetector
             Controls.Add(lblAverageRate);
             Controls.Add(chkShowCurrentRate);
             Controls.Add(lstPollingRates);
+            Controls.Add(lblTimeIntervalDescription);
+            Controls.Add(txtTimeInterval);
             Name = "Form1";
             Text = "Mouse Polling Rate Detector";
             ResumeLayout(false);
